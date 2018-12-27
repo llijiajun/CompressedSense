@@ -52,9 +52,9 @@ def comprase(image,lie,hang,sampleRate):
     sparse_rec_1d=np.zeros((hang,lie))   # 初始化稀疏系数矩阵    
     Theta_1d=np.dot(Phi,mat_dct_1d)   #测量矩阵乘上基矩阵
     for i in range(lie):
-        print('正在重建第',i,'列。。。')
-        print(img_cs_1d.shape)
-        print(Theta_1d.shape)
+        #print('正在重建第',i,'列。。。')
+        #print(img_cs_1d.shape)
+        #print(Theta_1d.shape)
         column_rec=cs_IHT(img_cs_1d[:,i],Theta_1d)  #利用IHT算法计算稀疏系数
         sparse_rec_1d[:,i]=column_rec;        
     img_rec=np.dot(mat_dct_1d,sparse_rec_1d)          #稀疏系数乘上基矩阵

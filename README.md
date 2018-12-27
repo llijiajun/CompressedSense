@@ -2,6 +2,8 @@
 
 2018统计软件小组大作业
 
+小组成员：李家郡、范迪、高林航、王欣悦、叶睿旻、刘思齐
+
 ## PPT
 
 展示PPT: -PPT/index.html
@@ -47,3 +49,7 @@ SP-smallbo-samplerate-rsquare.csv
 ### 图像恢复
 
 recover.py
+
+## 更多扩展参考github
+
+[https://github.com/llijiajun/CompressedSense](https://github.com/llijiajun/CompressedSense)

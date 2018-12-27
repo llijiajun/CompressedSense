@@ -22,7 +22,7 @@ output:
 
 ![](ICS.png)
 
-## 展开思路
+## 展开思路{data-transition="convex"}
 
 ![](silu.jpg)
 
@@ -45,7 +45,7 @@ output:
 </tr></table>
 
 
-### 以其中采样率为0.7时做算法间比较
+### 以其中采样率为0.7时做算法间比较{data-transition="fade"}
 
 比较 | IRLS | IHT | SP
 :-: | :-: | :-: | :-:
@@ -60,7 +60,7 @@ output:
 ![](lpls.png)
 
 
-## 优化思路二: 小波变换
+## 优化思路二: 小波变换{data-transition="concave"}
 
 ### 小波变换原理
 
@@ -112,7 +112,11 @@ legend("topright",c(dat1,dat2,dat3),c("IHT","SP","IRLS"),col=c("blue","red","bla
 </tr>
 </table>
 
-## 应用
+## 应用{data-transition="concave" data-background="bird.jpg"}
+
+
+
+#### 医学CT
 
 #### 压缩传输图片
 
@@ -120,11 +124,11 @@ legend("topright",c(dat1,dat2,dat3),c("IHT","SP","IRLS"),col=c("blue","red","bla
 
 #### 信道编码
 
-#### 医学CT
-
 #### 雷达成像
 
-# Thanks
+
+
+# <font color="white">Thanks</font>{data-background="lena512.bmp"}
 
 <!--
 ## Iamge Compressed Sensing Reconstruction
