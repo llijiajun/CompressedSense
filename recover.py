@@ -28,9 +28,10 @@ def cs_IHT(y,D):
 
 def comprase(image,lie,hang,sampleRate):
     #sampleRate=0.01  #采样率
-    Phi=np.random.randn(hang,hang)
-    u, s, vh = np.linalg.svd(Phi)
-    Phi = u[:int(hang*sampleRate),] #将测量矩阵正交化
+    
+    u, s, vh = np.linalg.svd(image)
+    #print(s.shape[0])
+    Phi = u[:int(s.shape[0]*sampleRate),]
 
 
     #生成稀疏基DCT矩阵
@@ -45,8 +46,13 @@ def comprase(image,lie,hang,sampleRate):
     #随机测量
     #print(Phi.shape)
     #print(image.shape)
-    img_cs_1d=np.dot(Phi,image)
-
+    dia=np.zeros([u.shape[0],vh.shape[0]])
+    for i in range(int(sampleRate*len(s))):
+        dia[i,i]=s[i]
+    img_cs_1d=np.dot(Phi,dia)
+    img_cs_1d=np,dot(img_cs_1d,vh)
+    #np.dot(Phi,s)#np.dot(Phi,image)
+    img_cs_1d=img_cs_1d[1]
     
     #重建
     sparse_rec_1d=np.zeros((hang,lie))   # 初始化稀疏系数矩阵    
@@ -56,7 +62,7 @@ def comprase(image,lie,hang,sampleRate):
         column_rec=cs_IHT(img_cs_1d[:,i],Theta_1d)  #利用IHT算法计算稀疏系数
         sparse_rec_1d[:,i]=column_rec;        
     img_rec=np.dot(mat_dct_1d,sparse_rec_1d)          #稀疏系数乘上基矩阵
-    return img_rec
+    return np.dot(u,img_rec)
 
 begin=time.time()
 #读bmp
@@ -64,24 +70,29 @@ im=np.array(Image.open("lena512.bmp"))
 #提取小波基
 
 damage=im.copy()
-for i in range(100):
-    for j in range(100):
+for i in range(60,90):
+    for j in range(50,80):
         damage[i,j]=0
         
 image2=Image.fromarray(damage)
 image2.show()
-
 db1=pywt.Wavelet('db1')
 
 #计算小波系数，最多可以分9层，可以分少一点
 coef=pywt.wavedec(im,db1,level=9)
 coef_damage=pywt.wavedec(damage,db1,level=9)
-"""
+
 temp_coef=coef.copy()
 coef=temp_coef.copy()
 #comprass 0.6
-coef[9]=comprase(coef[9],256,512,52.2/256)
-newimg=pywt.waverec(coef,db1)
+#coef_damage[3]=comprase(coef_damage[3],4,512,1)
+#coef_damage[4]=comprase(coef_damage[4],8,512,1)
+#coef_damage[5]=comprase(coef_damage[5],16,512,1)
+#coef_damage[6]=comprase(coef_damage[6],32,512,1)
+#coef_damage[7]=comprase(coef_damage[7],64,512,1)
+coef_damage[8]=comprase(coef_damage[8],128,512,1)
+coef_damage[9]=comprase(coef_damage[9],256,512,1)
+newimg=pywt.waverec(coef_damage,db1)
 
 image2=Image.fromarray(newimg)
 image2.show()
@@ -103,3 +114,4 @@ for i in range(len(coef)):
         v=fl2.write("\n")
 fl.close()
 fl2.close()
+"""
